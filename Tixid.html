@@ -1,0 +1,379 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title> BàJ • dix</title>
+		<link rel="StyleSheet" type="text/css" href="./dix_files/dix.css">
+		<meta property="fb:app_id" content="223856400979564"> 
+    <meta property="og:site_name" content="boiteajeux.net">
+    <meta property="og:type" content="game"> 
+    <meta property="og:url" content="https://www.boiteajeux.net/jeux/dix/partie.php?id=99999"> 
+    <meta property="og:title" content="Play &#39;Dixit&#39; online"> 
+    <meta property="og:image" content="https://www.boiteajeux.net/img/fb/dix.jpg"> 
+    <meta property="og:description" content="Play &#39;Dixit&#39; online for free">
+<script type="text/javascript" async="" src="./dix_files/ga.js.download"></script><script type="text/javascript" src="./dix_files/jquery-1.7.2.min.js.download"></script>
+        <script type="text/javascript" src="./dix_files/jquery.hoverIntent.minified.js.download"></script>
+        <script type="text/javascript" src="./dix_files/jquery.cluetip.min.js.download"></script>
+        <link rel="stylesheet" href="./dix_files/jquery.cluetip.css" type="text/css">
+        <link rel="shortcut icon" type="image/x-icon" href="https://www.boiteajeux.net/img/baj.ico">
+        <link rel="StyleSheet" type="text/css" href="./dix_files/stats.css">
+        <link rel="StyleSheet" type="text/css" href="./dix_files/shared.css">
+        <script type="text/javascript" src="./dix_files/lib_utils.js.download"></script><script type="text/javascript">
+
+	let tabImage = [];
+	let currentSet = 12;
+	function getRandomIndex(i, j) {
+		return Math.floor((Math.random()*(j - i + 1)) + i);
+	}
+	function changeImages(newSet) {
+		let indexImage = 1;
+		let usedImage = {};
+		let randomNumImage;
+		if (newSet > 0) { currentSet = newSet; }
+		document.querySelectorAll(".randomImage").forEach(function(tag) {
+			do { 
+				if (currentSet == 12) { randomNumImage = parseInt(getRandomIndex(1, 11)) * 100; }
+				else { randomNumImage = parseInt(currentSet) * 100; }
+				randomNumImage += parseInt(getRandomIndex(1, 20));
+			} while (usedImage[randomNumImage] === true);
+			tabImage[indexImage] = randomNumImage; 
+			tag.src = './dix_files/' + randomNumImage + '.png';
+			usedImage[randomNumImage] = true;
+			indexImage += 1;
+		})
+		  montreCarte(1);
+	}
+	window.onload = function() {
+		changeImages(currentSet);
+	}
+
+        function disableHyperLink(obj, disable) {
+          var href, onclick, color;
+
+          if (disable) {
+            // Protect against multiple deactivations
+            var href_bak = obj.getAttribute("href_bak");
+            if (href_bak && href_bak != null) {
+              return;
+            }
+
+            // Deactivate the hyperlink and onclick event and
+            // save them for future reactivation
+            onclick = obj.getAttribute("onclick");
+            href = (obj.nodeName.toLowerCase() == 'a') ? obj.getAttribute("href") : null;
+
+            if (onclick && onclick != null) {
+              obj.setAttribute("onclick_bak", onclick);
+              obj.setAttribute("onclick", function() { return false; });
+            }
+
+            if (href && href != null) {
+              obj.setAttribute("href_bak", href);
+              obj.removeAttribute("href"); //(1)
+
+              // Gray the link text
+              if (navigator.appName == "Microsoft Internet Explorer") {
+                obj.disabled = true; // Non standard
+              }
+            }
+          } else {
+            // Reactivate the hyperlink and onclick event using
+            // saved link address and onclick event
+            onclick = obj.getAttribute("onclick_bak");
+            href = obj.getAttribute("href_bak");
+
+            if (onclick && onclick != null) {
+              obj.setAttribute("onclick", onclick);
+            }
+            obj.removeAttribute("onclick_bak");
+
+            if (href && href != null) {
+              obj.setAttribute("href", href);
+
+              // Ungray the link text
+              if (navigator.appName == "Microsoft Internet Explorer") {
+                obj.disabled = false; // Non standard
+              }
+            }
+            obj.removeAttribute("href_bak");
+          }
+        }
+        function antidoubleclic() {
+          $('input[type="submit"]').attr('disabled', 'disabled');
+          $('input[type="button"]').attr('disabled', 'disabled');
+          $('button').attr('disabled', 'disabled');
+
+          var disable = true;
+          var allAnchors = document.getElementsByTagName("a");
+          for (var i = 0; i < allAnchors.length; i++) {
+            disableHyperLink(allAnchors[i], disable);
+          }
+        }
+
+        function actualiserPage(numSet) {
+	  changeImages(numSet);
+	  montreCarte(1);
+        }
+
+        $(document).ready(function() {$('.clMiniForum').cluetip({cluetipClass: 'rounded', waitImage: false, local:false, width: '240px', cursor: 'pointer', showTitle: false});});</script><script type="text/javascript">function detailjoueur(pID) {};</script>    <script type="text/javascript">
+
+      function montreCarte(i) {
+        $("#dvGdeCarte").html('<img src="./dix_files/' + tabImage[i] + '.png">');
+        $("#dvGdeCarte").show();
+      }
+      
+      function historique() {
+        popup('historique.php?id=99999','wiHisto',650,800);
+      }
+
+      		</script>
+    <script type="text/javaScript" src="./dix_files/mootools-core.js.download"></script>
+<script type="text/javaScript" src="./dix_files/MooTools.js.download"></script>
+<script type="text/javaScript" src="./dix_files/config.js.download"></script>
+    <script type="text/javascript" src="./dix_files/jquery.toastmessage.js.download"></script>
+<link type="text/css" href="./dix_files/jquery.toastmessage.css" rel="stylesheet">
+<script type="text/javaScript">
+	APE.ControllerPartieUpdate = new Class({
+        	Extends: APE.Client,
+        	
+		initialize: function(){
+			this.onRaw('postmsg', this.onMsg);
+			this.addEvent('load',this.start);
+		},
+        
+		start: function(core){
+			this.core.start({'name': $time().toString()});
+		},
+        
+		onMsg: function(raw){
+      if (raw.data.etat == 2) {
+  			var notifText = 'VOUS ÊTES ATTENDU DANS LA  <a href="../../jeux/'+raw.data.code+'/partie.php?id='+raw.data.id+'" color="#fff">PARTIE '+raw.data.id+'</a>';
+      } else { // fin de partie
+        var notifText = '<a href="../../jeux/'+raw.data.code+'/partie.php?id='+raw.data.id+'" color="#fff">PARTIE '+raw.data.id+'</a> TERMINEE ! ';
+      }
+							if(raw.data.code == 'dix' && raw.data.id == 99999) {
+          if(typeof reloadBaj != 'undefined') {
+            if(!isActive) {
+              reloadBaj();
+            }
+          } else {
+											var isMiniforumActive = document.fmMiniForum.pMessage.value != '';
+						if (isMiniforumActive) {
+							var notifTextMF = '<br/>La partie a avancé, vous pouvez recharger la page en envoyant votre message ou en cliquant ci-dessous (mais vous perdrez votre message !)<br/><a href="javascript:document.location.reload();" color="#fff">Recharger</a>';
+							$().toastmessage('showToast', {
+					            text     : notifTextMF,
+					            sticky   : true,
+					            position : 'top-right',
+					            type     : 'notice',
+					            closeText: ''
+					        });
+						} else {
+							document.location.reload();
+						}
+					          }
+				} else {
+					if(raw.data.is_active == 1 || raw.data.etat == 3){
+						$().toastmessage('showToast', {
+              text : notifText,
+              sticky   : false,
+	            position : 'top-right',
+	            type     : 'jeu',
+              src      : '../../img/icojeux/'+raw.data.code+'.png',
+	            closeText: ''
+            });
+					}
+				}
+
+					}
+  });
+
+	window.addEvent('domready', function(){
+		var client = new APE.ControllerPartieUpdate();
+
+		client.load({
+			identifier: 'baj',
+			channel: '49232'
+		});
+
+	});
+</script>
+
+<!-- script src="./dix_files/lowLag.js.download"></script>
+<script src="./dix_files/soundmanager2-jsmin.js.download"></script>
+<script>
+  $(document).ready(function() { });
+</script>  
+<script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-303834-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); })();
+</script -->
+
+</head>
+  <body style="text-align:center;">
+    <table style="border-collapse:separate;border-spacing:10px 0px">
+      <tbody><tr>
+        <td style="vertical-align:top;">
+                 		<table border="0" cellpadding="5" cellspacing="5" width="100%">
+      		  <tbody><tr>
+      		    <td style="text-align:center;">
+      		      <img src="./dix_files/logo_dix.png" border="0">
+      		    </td>
+      		  </tr>
+       		  <tr>
+       		    <td>
+  	                       		  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align:center">
+           		    <tbody><tr><td style="text-align:center; font-size:4pt;">&nbsp;</td></tr>
+                  <tr><td style="text-align:center;" class="clTexteFort">Partie n°99999&nbsp;<img style="vertical-align:middle" src="./dix_files/fr_flag.gif"></td></tr>
+  								                  <tr><td style="text-align:center;" class="clTexteFort">"<span style="font-size:8pt;font-style:italic;" id="titre">Decks Dixit alternatifs (démo)</span>"</td></tr>
+  								                  <tr><td style="text-align:center; font-size:4pt;">&nbsp;</td></tr>
+                  <tr><td style="text-align:center;" class="clTexteFort">PIOCHE : 6 cartes</td></tr>
+                  <tr><td style="text-align:center; font-size:4pt;">&nbsp;</td></tr>
+                  
+                  <tr><td style="text-align:center;"><a href="https://www.boiteajeux.net/jeux/dix/dix_aide_fr.php" target="_blank"><img style="padding:3px" alt="Comment jouer ?" title="Comment jouer ?" src="./dix_files/ico_help.png" border="0"></a><script type="text/javascript">  $(document).ready(function() {$('.clAideTip').cluetip({cluetipClass: 'rounded', waitImage: false, local:true, cursor: 'pointer', showTitle: false});$('.clAchat').cluetip({activation: 'click', cluetipClass: 'rounded', waitImage: false, local:false, width: '200px', cursor: 'pointer', showTitle: false, sticky: true, closePosition: 'top', closeText: '<img style="float:right;width:15px" src="../../img/stop.png">'});$('.clStats').cluetip({activation: 'click', cluetipClass: 'rounded', waitImage: false, local:false, width: '450px', cursor: 'pointer', showTitle: false, sticky: true, closePosition: 'top', closeText: '<img style="float:right;width:15px" src="../../img/stop.png">'});});</script><img style="padding:3px" alt="Stats et Elo" title="Stats et Elo" src="./dix_files/ico_stats.png" border="0"><img style="padding:3px" alt="Historique" title="Historique" src="./dix_files/ico_histo.png" border="0"><img id="iconote" style="padding:3px" alt="Mes notes" title="Mes notes" src="./dix_files/ico_note.png" border="0"><script type="text/javascript">
+                    var lbChange = false;
+                    function maxlength_textarea(id, crid, max)
+                    {
+                      var txtarea = document.getElementById(id);
+                      document.getElementById(crid).innerHTML=max-txtarea.value.length;
+                    }
+                    
+                    function v_maxlength(id, crid, max)
+                    {
+                      lbChange = true;
+                      var txtarea = document.getElementById(id);
+                      var crreste = document.getElementById(crid);
+                      var len = txtarea.value.length;
+                      if(len>max)
+                      {
+                              txtarea.value=txtarea.value.substr(0,max);
+                      }
+                      len = txtarea.value.length;
+                      crreste.innerHTML=max-len;
+                    }
+
+                    $().ready(function() {
+                      $("#txtNote").keydown( function(){v_maxlength('txtNote','txtNoteLeft',600); });
+                      maxlength_textarea('txtNote','txtNoteLeft',600);
+                    });
+                    
+                    function sendNote() {
+                      if (!lbChange) {
+                        $('#dvNote').hide();
+                      } else {
+                        $.post("../../note.php", $("#fmNote").serialize(), function(data) {
+                          $('#dvNote').hide();
+                          if ($("#txtNote").val() == "") {
+                            $("#iconote").attr("src","../../img/ico_note.png");
+                          } else {
+                            $("#iconote").attr("src","../../img/ico_noter.png");
+                          }
+                        });
+                        lbChange = false;
+                      }
+                    }
+                </script><div id="dvNote" class="cluetip-rounded" style="background-color:#333333;color:antiquewhite;text-align:center;z-index:4000;padding:5px;position:absolute;display:none;top:100px;left:100px;filter: alpha(opacity=90);
+        -moz-opacity: 0.9;opacity: 0.9;"><form id="fmNote" name="fmNote" method="post" action="https://www.boiteajeux.net/note.php"><div style="font-weight:bold;font-size:10pt">Mes notes</div><input type="hidden" name="idPartie" value="99999"><input type="hidden" name="idJeu" value="dix"><textarea id="txtNote" name="txtNote" class="clInput" cols="50" rows="15"></textarea><br><span style="font-style:italic;color:antiquewhite;font-size:7pt">Il vous reste <span id="txtNoteLeft">600</span> caractères.</span><div style="float:right">
+        <a href="javascript:sendNote();"><img src="./dix_files/stop.png" style="border:none;width:15px"></a>
+      </div></form></div><a href="javascript:void(0);" onclick="actualiserPage(0);"><img id="icorefresh" style="padding:3px" alt="Actualiser" title="Actualiser" src="./dix_files/ico_refresh.png" border="0"></a></td></tr><tr><td style="text-align:center;"><img style="padding:3px" alt="Retour à l&#39;accueil" title="Retour à l&#39;accueil" src="./dix_files/ico_home.png" border="0"><img style="padding:3px" alt="Mes préférences" title="Mes préférences" src="./dix_files/ico_param2.png" border="0"><div id="dvParam" class="cluetip-rounded" style="background-color:#333333;color:antiquewhite;z-index:10;text-align:center;padding:5px;position:absolute;display:none;top:100px;width:300px;left:100px;filter: alpha(opacity=90);
+        -moz-opacity: 0.9;opacity: 0.9;"><form id="fmParam" name="fmParam" method="post" action="https://www.boiteajeux.net/rec_premium_jeux.php"><div style="font-weight:bold;font-size:10pt">Dixit<br>Mes préférences</div><input type="hidden" name="actionJeux" id="actionJeux" value="single"><input type="hidden" name="jeu" id="jeu" value="dix"><div style="color:antiquewhite;font-size:8pt;font-weight:normal;">
+        <script>
+          // save game settings
+          function sendParam() {
+            $('#dvParam').hide();
+            $.post("../../rec_premium_jeux.php", $("#fmParam").serialize(), function(data) {
+              window.location.reload();
+            });
+          }
+        </script>
+          <table style="width:100%;border-collapse:separate;border-spacing:5px"><tbody><tr><th style="text-align:right;font-size:8pt;color:antiquewhite">Préféré&nbsp;<a class="clAideTip" href="https://www.boiteajeux.net/jeux/dix/partie.php?id=99999#jeupref" rel="#jeupref"><span class="clAide">[?]</span></a></th><td style="text-align:left"><input type="checkbox" name="dixprefere" value="1" checked="checked"></td></tr>
+        <tr><th style="text-align:right;font-size:8pt;color:antiquewhite">Invisible&nbsp;<a class="clAideTip" href="https://www.boiteajeux.net/jeux/dix/partie.php?id=99999#jeuinv" rel="#jeuinv"><span class="clAide">[?]</span></a></th><td style="text-align:left"><input type="checkbox" name="invisible" value="1"></td></tr><tr><th style="text-align:right;font-size:8pt">Masquer la pub</th><td style="text-align:left"><input type="checkbox" name="dixpub" value="1" checked="checked"></td></tr></tbody></table><div id="jeupref" style="padding: 5px; background-color: rgb(51, 51, 51); color: antiquewhite; opacity: 0.9; display: none;">Vos jeux préférés seront en tête de liste dans les parties à créer et à rejoindre.</div><div id="jeuinv" style="padding: 5px; background-color: rgb(51, 51, 51); color: antiquewhite; opacity: 0.9; display: none;">Un jeu invisible disparaitra de vos tableaux de bord. Attention à ne pas rendre invisible un jeu auquel vous jouez !</div><div style="float:right">
+        <a href="javascript:sendParam();"><img src="./dix_files/stop.png" style="border:none;width:15px"></a>
+      </div></div></form></div><a href="https://www.boiteajeux.net/forum/viewtopic.php?f=71&t=27815" target="_blank"><img style="padding:3px" alt="Forum du jeu" title="Forum du jeu" src="./dix_files/ico_forum.png" border="0"></a><img style="padding:3px" alt="Achetez ce jeu" title="Achetez ce jeu" src="./dix_files/ico_buy.png" border="0"><img style="padding:3px" alt="Partie suivante" title="Partie suivante" src="./dix_files/ico_next.png" border="0"></td></tr>                  <tr><td><br></td></tr>
+  								<tr>
+  									<td class="clTexteFort">
+  									  <center>
+             		      <table border="1" cellpadding="0" cellspacing="0">
+  											  												<tbody><tr>
+  												  <td class="clTexteFort" style="width:175px;padding:2px;vertical-align:top;text-align:center;">
+  												    <span style=""><a href="javascript:void(0);" onclick="detailjoueur(46786)" class="clLienJoueur"><span style="">Corget</span></a><img alt="online" title="online" src="./dix_files/ico_online.png" style="display:none;vertical-align:middle">&nbsp;</span>
+  												  </td>
+  												  <td class="clTexteFort" style="padding:0px 5px;">15 pts</td>
+  												</tr>
+  											  												<tr>
+  												  <td class="clTexteFort" style="width:175px;padding:2px;vertical-align:top;text-align:center;">
+  												    <span style=""><a href="javascript:void(0);" onclick="detailjoueur(23718)" class="clLienJoueur"><span style="">Tidou</span></a><img alt="online" title="online" src="./dix_files/ico_online.png" style="display:none;vertical-align:middle"><img src="./dix_files/bulle.png">&nbsp;</span>
+  												  </td>
+  												  <td class="clTexteFort" style="padding:0px 5px;">21 pts</td>
+  												</tr>
+  											  												<tr>
+  												  <td class="clTexteFort" style="width:175px;padding:2px;vertical-align:top;text-align:center;">
+  												    <span style=""><a href="javascript:void(0);" onclick="detailjoueur(49232)" class="clLienJoueur"><span style="">Gnafron</span></a><img alt="online" title="online" src="./dix_files/ico_online.png" style="vertical-align:middle">&nbsp;</span>
+  												  </td>
+  												  <td class="clTexteFort" style="padding:0px 5px;">18 pts</td>
+  												</tr>
+  											  												<tr>
+  												  <td class="clTexteFort" style="width:175px;padding:2px;vertical-align:top;text-align:center;">
+  												    <span style=""><a href="javascript:void(0);" onclick="detailjoueur(48846)" class="clLienJoueur"><span style="">La Guille</span></a><img alt="online" title="online" src="./dix_files/ico_online.png" style="display:none;vertical-align:middle">&nbsp;</span>
+  												  </td>
+  												  <td class="clTexteFort" style="padding:0px 5px;">15 pts</td>
+  												</tr>
+  											  												<tr>
+  												  <td class="clTexteFort" style="width:175px;padding:2px;vertical-align:top;text-align:center;">
+  												    <span style=""><a href="javascript:void(0);" onclick="detailjoueur(4950)" class="clLienJoueur"><span style="">Bistèque</span></a><img alt="online" title="online" src="./dix_files/ico_online.png" style="display:none;vertical-align:middle">&nbsp;</span>
+  												  </td>
+  												  <td class="clTexteFort" style="padding:0px 5px;">11 pts</td>
+  												</tr>
+  											  												<tr>
+  												  <td class="clTexteFort" style="width:175px;padding:2px;vertical-align:top;text-align:center;">
+  												    <span style="color:gold; font-size:10pt;"><a href="javascript:void(0);" onclick="detailjoueur(25942)" class="clLienJoueur"><span style="color:gold; font-size:10pt;">Le Tondu</span></a><img alt="online" title="online" src="./dix_files/ico_online.png" style="display:none;vertical-align:middle">&nbsp;</span>
+  												  </td>
+  												  <td class="clTexteFort" style="padding:0px 5px;">11 pts</td>
+  												</tr>
+  											  										</tbody></table>
+  									  </center>
+  									</td>
+  								</tr>
+             		</tbody></table>
+              </td>
+            </tr>
+              <tr>
+     		      <td style="vertical-align:top;text-align:left;">
+  							<script type="text/javascript">function envoyerMessage() {if (document.fmMiniForum.pMessage.value != '') { document.fmMiniForum.submit();} else { alert("Vous devez saisir un message!");}}
+            function moreMiniForum() {
+              $('.clMiniForumMoins').hide();
+              $('.clMiniForumPlus').show();
+            }
+            function lessMiniForum() {
+              $('.clMiniForumPlus').hide();
+              $('.clMiniForumMoins').show();
+            }</script>      <form name="fmMiniForum" method="post" action="https://www.boiteajeux.net/jeux/dix/miniforum.php?id=99999">      <table border="0" cellpadding="1" cellspacing="1" width="250">        <tbody><tr>          <td colspan="2">            <div style="float:left">&nbsp;<img alt="miniforum" src="./dix_files/fr_miniforum.png"></div>            <div style="float:right" rel="" class="clMiniForum" title="">                  <img alt="help" src="./dix_files/aide.png" border="0">            </div>          </td>        </tr>        <tr><td colspan="2" style="font-style:italic; font-size:7pt;">Vous pouvez laisser un message aux autres joueurs.</td></tr>        <tr><td colspan="2"><textarea id="miniforumTextarea" name="pMessage" class="clInput" style="width:250px;padding:0" rows="4"></textarea></td></tr>        <tr><td colspan="2" style="text-align:right"><input type="button" class="clBouton btn" value="ENVOYER" onclick=""></td></tr>      </tbody></table><table style="border:none;width:250px;table-layout: fixed;border-collapse:separate;border-spacing:1px;" id="miniforumMessages"><tbody><tr height="16">
+
+<td class="clEntete" width="40%">21/04/2017 18:52</td>
+<td class="clEntete" style="text-align:left;">&nbsp;&nbsp;Corget</td></tr><tr>
+<td class="clBody" colspan="2" style="width:250px;text-align:left;word-wrap: break-word;">Bonjour, la fine équipe, et bonne partie ! <img width="15" height="15" src="./dix_files/lol.gif"></td></tr></tbody></table>      </form>  						</td>
+            </tr>
+       		</tbody></table>
+        </td>
+        <td style="vertical-align:top;">
+                                           <form name="fmPlateau" method="post" action="https://www.boiteajeux.net/jeux/dix/traitement.php?id=99999">
+               <input type="hidden" name="pAction" value="placer">
+               <input type="hidden" name="pI" value="">
+               <input type="hidden" name="pIdCoup" value="58fa2c2ed2c06">
+             
+             <br><div class="clInfo"><img align="absmiddle" src="./dix_files/info.png">&nbsp;Decks : <a href="javascript:void(0);" onclick="actualiserPage(1)"><span style="color:gold; font-size:8pt;">[Odyssey]</span></a>&nbsp;-&nbsp;<a href="javascript:void(0);" onclick="actualiserPage(2)"><span style="color:gold; font-size:8pt;">[Quest]</span></a>&nbsp;-&nbsp;<a href="javascript:void(0);" onclick="actualiserPage(3)"><span style="color:gold; font-size:8pt;">[Journey]</span></a>&nbsp;-&nbsp;<a href="javascript:void(0);" onclick="actualiserPage(4)"><span style="color:gold; font-size:8pt;">[Origins]</span></a>&nbsp;-&nbsp;<a href="javascript:void(0);" onclick="actualiserPage(5)"><span style="color:gold; font-size:8pt;">[Daydreams]</span></a>&nbsp;-&nbsp;<a href="javascript:void(0);" onclick="actualiserPage(6)"><span style="color:gold; font-size:8pt;">[Memories]</span></a><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="actualiserPage(7)"><span style="color:gold; font-size:8pt;">[Revelations]</span></a>&nbsp;-&nbsp;<a href="javascript:void(0);" onclick="actualiserPage(8)"><span style="color:gold; font-size:8pt;">[Harmonies]</span></a>&nbsp;-&nbsp;<a href="javascript:void(0);" onclick="actualiserPage(9)"><span style="color:gold; font-size:8pt;">[Anniversary]</span></a>&nbsp;-&nbsp;<a href="javascript:void(0);" onclick="actualiserPage(10)"><span style="color:gold; font-size:8pt;">[Mirrors]</span></a>&nbsp;-&nbsp;<a href="javascript:void(0);" onclick="actualiserPage(11)"><span style="color:gold; font-size:8pt;">[Stella]</span></a>&nbsp;-&nbsp;<a href="javascript:void(0);" onclick="actualiserPage(12)"><span style="color:yellow; font-size:8pt;">[ALL]</span></a></div><br><br><div><img border="0" onmouseover="montreCarte(1)" src="" width="120&quot;" class="randomImage">&nbsp;<img border="0" onmouseover="montreCarte(2)" src="" width="120&quot;" class="randomImage">&nbsp;<img border="0" onmouseover="montreCarte(3)" src="" width="120&quot;" class="randomImage">&nbsp;<img border="0" onmouseover="montreCarte(4)" src="" width="120&quot;" class="randomImage">&nbsp;<img border="0" onmouseover="montreCarte(5)" src="" width="120&quot;" class="randomImage">&nbsp;</div>  	        </form>
+  	        <div id="dvGdeCarte" style="float: right; padding-top: 20px; display: none;"><img src=""></div>
+  	        
+  	         <div style="max-width:600px;padding-top:20px;text-align:left;padding-right:250px;word-break:break-all;word-wrap: break-word;">
+             <img src="./dix_files/fr_derniertour.png"><br><p><span style="font-weight:bold">Le conteur a dit</span> "Ouaf-ouaf ! (seul Kafi pourrait comprendre)"</p><p><span style="font-weight:bold">Explication : </span>je vous l'avais bien dit... ;)</p><br><center><table><tbody><tr style="vertical-align:top;"><td><table border="0" cellpadding="1" cellspacing="0"><tbody><tr><td class="clBody" style="height:88px;text-align:center;padding-left:2px;padding-right:2px;">&nbsp;</td></tr><tr><td class="clTexteFort" style="height:30px;vertical-align:bottom">jouée par </td></tr><tr><td class="clTexteFort">votes </td></tr></tbody></table></td><td><table border="0" cellpadding="1" cellspacing="0"><tbody><tr><td style="text-align:center"><img src="" onmouseover="montreCarte(6)" onmouseout="$(&#39;#dvGdeCarte&#39;).hide();" width="60" class="randomImage"></td></tr><tr><td class="clBody" style="height:30px;vertical-align:bottom;text-align:center;padding-left:2px;padding-right:2px;">La Guille</td></tr><tr><td class="clTexteFort" style="text-align:center;padding-left:5px;padding-right:5px;"></td></tr></tbody></table></td><td><table border="0" cellpadding="1" cellspacing="0"><tbody><tr><td style="text-align:center"><img src="" onmouseover="montreCarte(7)" onmouseout="$(&#39;#dvGdeCarte&#39;).hide();" width="60" class="randomImage"></td></tr><tr><td class="clBody" style="height:30px;vertical-align:bottom;text-align:center;padding-left:2px;padding-right:2px;">Le Tondu</td></tr><tr><td class="clTexteFort" style="text-align:center;padding-left:5px;padding-right:5px;">La Guille<br></td></tr></tbody></table></td><td><table border="0" cellpadding="1" cellspacing="0"><tbody><tr><td style="text-align:center"><img src="" onmouseover="montreCarte(8)" onmouseout="$(&#39;#dvGdeCarte&#39;).hide();" width="60" class="randomImage"></td></tr><tr><td class="clBody" style="height:30px;vertical-align:bottom;text-align:center;padding-left:2px;padding-right:2px;">Bistèque</td></tr><tr><td class="clTexteFort" style="text-align:center;padding-left:5px;padding-right:5px;">Gnafron<br>Tidou<br>Le Tondu<br></td></tr></tbody></table></td><td><table border="0" cellpadding="1" cellspacing="0"><tbody><tr><td style="text-align:center"><img src="" onmouseover="montreCarte(9)" onmouseout="$(&#39;#dvGdeCarte&#39;).hide();" width="60" class="randomImage"></td></tr><tr><td class="clBody" style="height:30px;vertical-align:bottom;text-align:center;padding-left:2px;padding-right:2px;">Corget<img src="./dix_files/bulle.png"></td></tr><tr><td class="clTexteFort" style="text-align:center;padding-left:5px;padding-right:5px;"></td></tr></tbody></table></td><td><table border="0" cellpadding="1" cellspacing="0"><tbody><tr><td style="text-align:center"><img src="" onmouseover="montreCarte(10)" onmouseout="$(&#39;#dvGdeCarte&#39;).hide();" width="60" class="randomImage"></td></tr><tr><td class="clBody" style="height:30px;vertical-align:bottom;text-align:center;padding-left:2px;padding-right:2px;">Gnafron</td></tr><tr><td class="clTexteFort" style="text-align:center;padding-left:5px;padding-right:5px;">Bistèque<br></td></tr></tbody></table></td><td><table border="0" cellpadding="1" cellspacing="0"><tbody><tr><td style="text-align:center"><img src="" onmouseover="montreCarte(11)" onmouseout="$(&#39;#dvGdeCarte&#39;).hide();" width="60" class="randomImage"></td></tr><tr><td class="clBody" style="height:30px;vertical-align:bottom;text-align:center;padding-left:2px;padding-right:2px;">Tidou</td></tr><tr><td class="clTexteFort" style="text-align:center;padding-left:5px;padding-right:5px;"></td></tr></tbody></table></td></tr></tbody></table><br><table border="1" cellpadding="1" cellspacing="0" class="clBody"><tbody><tr class="clTexteFort"><td style="padding-left:2px;padding-right:2px">JOUEUR</td><td style="padding-left:2px;padding-right:2px">PTS DEBUT</td><td style="padding-left:2px;padding-right:2px">GAIN</td><td style="padding-left:2px;padding-right:2px">PTS FIN</td></tr><tr style="text-align:center;"><td>Corget</td><td>15</td><td>0</td><td>15</td></tr><tr style="text-align:center;"><td>Tidou</td><td>19</td><td>2</td><td>21</td></tr><tr style="text-align:center;"><td>Gnafron</td><td>15</td><td>3</td><td>18</td></tr><tr style="text-align:center;"><td>La Guille</td><td>13</td><td>2</td><td>15</td></tr><tr style="text-align:center;"><td>Bistèque</td><td>6</td><td>5</td><td>11</td></tr><tr style="text-align:center;"><td>Le Tondu</td><td>8</td><td>3</td><td>11</td></tr></tbody></table></center>             </div>
+
+              	      <div style="text-align:center;"><div style="font-size:7pt;font-style:italic;"><br>Dixit est un jeu de Jean-Louis Roubira édité par Libellud<br>Adaptation on-line Waybgo (<a style="font-size:7pt;font-style:italic;font-weight:normal;" href="mailto:contact@waybgo.com">contact@waybgo.com</a>)</div>
+</div>
+  	    </td>
+  	  </tr>
+  	</tbody></table>
+  
+
+<div id="cluetip-waitimage" style="position: absolute; display: none;"></div><div id="cluetip" style="position: absolute; display: none;"><div class="cluetip-outer" style="position: relative; z-index: 97;"><h3 class="cluetip-title ui-widget-header ui-cluetip-header"></h3><div class="cluetip-inner ui-widget-content ui-cluetip-content"></div></div><div class="cluetip-extra"></div><div class="cluetip-arrows ui-state-default"></div></div><div id="lowLag"></div><iframe id="ape_baj" style="display: none; position: absolute; left: -300px; top: -300px;" src="./dix_files/saved_resource.html"></iframe></body></html>
