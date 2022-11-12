@@ -30,9 +30,14 @@
 		if (newSet >= 0) { currentSet = newSet; }
 		document.querySelectorAll(".randomImage").forEach(function(tag) {
 			do { 
-				if (currentSet == 12) { randomNumImage = parseInt(getRandomIndex(1, 11)) * 100; }
-				else { randomNumImage = parseInt(currentSet) * 100; }
-				randomNumImage += parseInt(getRandomIndex(1, 20));
+				if (currentSet == 0) { 
+					randomNumImage = parseInt(getRandomIndex(1, 30));
+				}
+				else {
+					if (currentSet == 12) { randomNumImage = parseInt(getRandomIndex(1, 11)) * 100; }
+					else { randomNumImage = parseInt(currentSet) * 100; }
+					randomNumImage += parseInt(getRandomIndex(1, 20));
+				}
 			} while (usedImage[randomNumImage] === true);
 			tabImage[indexImage] = randomNumImage; 
 			tag.src = './dix_files/' + randomNumImage + '.png';
