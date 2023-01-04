@@ -1,0 +1,6 @@
+tixid : un deck Dixit alternatif pour BoiteAJeux
+description :
+	Remplace les cartes Dixit originelles par celles du Deck alternatif,
+	s'il y a exactement le mot "tixid" dans le titre de la partie.
+usage :
+	charger le contenu du script tixid.user.js dans Tampermonkey
